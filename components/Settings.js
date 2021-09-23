@@ -66,7 +66,7 @@ export function Settings({ players, setPlayers, settings, setSettings, setCurren
                     <FormLabel>Set All Scores</FormLabel>
                     <Input type="number" variant="filled" value={score} onChange={e => setScore(e.target.value)} />
                     <Stack direction="row" spacing={4} align="center">
-                        <Button colorScheme="teal" variant="outline" onClick={() => setPlayers([...players].map(player => { player.score = score; return player }))}>Set to Value</Button>
+                        <Button colorScheme="teal" variant="outline" onClick={() => setPlayers([...players].map(player => { player.score = parseInt(score); return player }))}>Set to Value</Button>
                         <Button colorScheme="teal" variant="outline" onClick={() => setPlayers([...players].map(player => { player.score = 0; return player }))}>Reset to Zero</Button>
                     </Stack>
                 </FormControl>
