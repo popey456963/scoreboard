@@ -2,7 +2,7 @@ module.exports = {
     apps: [{
         name: "scoreboard",
         script: "npm",
-        args: "start",
+        args: "start -p 8000",
         env_production: {
             NODE_ENV: "production"
         },
