@@ -43,7 +43,7 @@ export const LAYOUTS = [
     // three players
     {
         grid: {
-            gridTemplateAreas: [["one", "two"], ["one three"]],
+            gridTemplateAreas: [["one", "two"], ["one", "three"]],
             gridTemplateColumns: "repeat(2, 1fr)",
             gridTemplateRows: "repeat(2, 1fr)"
         },

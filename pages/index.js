@@ -12,12 +12,12 @@ import { Settings } from '../components/Settings'
 
 export default function Home() {
   const [players, setPlayers] = useState([
-    { background: "#285FEA", name: "Player 1", grid: "one", score: 0 },
-    { background: "#FF005F", name: "Player 2", grid: "two", score: 0 },
-    { background: "#BC73F0", name: "Player 3", grid: "three", score: 0 },
-    { background: "#600EA5", name: "Player 4", grid: "four", score: 0 },
-    { background: "#969CAE", name: "Player 5", grid: "five", score: 0 },
-    { background: "#3C4053", name: "Player 6", grid: "six", score: 0 }
+    { background: "#285FEA", name: "Player 1", grid: "one", score: 0, lastScore: 0 },
+    { background: "#FF005F", name: "Player 2", grid: "two", score: 0, lastScore: 0 },
+    { background: "#BC73F0", name: "Player 3", grid: "three", score: 0, lastScore: 0 },
+    { background: "#600EA5", name: "Player 4", grid: "four", score: 0, lastScore: 0 },
+    { background: "#969CAE", name: "Player 5", grid: "five", score: 0, lastScore: 0 },
+    { background: "#3C4053", name: "Player 6", grid: "six", score: 0, lastScore: 0 }
   ])
 
   const [settings, setSettings] = useState({

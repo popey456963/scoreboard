@@ -13,23 +13,6 @@ const baseGameboardStyle = {
 }
 
 export default function Gameboard({ players, setPlayers, settings, setSettings, setCurrentView }) {
-
-    console.log(changeLayoutOrientationToPortrait({
-        grid: {
-            gridTemplateAreas: [["one", "two", "three", "six"], ["one", "two", "three", "six"], ["one", "four", "five", "six"], ["one", "four", "five", "six"]],
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gridTemplateRows: "repeat(4, 1fr)"
-        },
-        players: [
-            { rotation: RIGHT_ROTATION },
-            { rotation: UP_ROTATION },
-            { rotation: UP_ROTATION },
-            { rotation: DOWN_ROTATION },
-            { rotation: DOWN_ROTATION },
-            { rotation: LEFT_ROTATION }
-        ]
-    }))
-
     let layout = LAYOUTS[settings.numberOfPlayers]
 
     if (settings.orientation === PORTRAIT) {
@@ -44,6 +27,14 @@ export default function Gameboard({ players, setPlayers, settings, setSettings, 
         function getSetPlayer() {
             return function setPlayer(player) {
                 const newPlayers = [...players]
+
+                if (player.score && player.score !== newPlayers[i].score) {
+                    // player score changed, reset other last scores...
+                    for (let [index, newPlayer] of Object.entries(newPlayers)) {
+                        if (Number(index) !== i) newPlayer.lastScore = newPlayer.score
+                    }
+                }
+
                 newPlayers[i] = { ...newPlayers[i], ...player }
 
                 setPlayers(newPlayers)

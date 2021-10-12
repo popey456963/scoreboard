@@ -86,9 +86,8 @@ export default function PlayerCard({ player, setPlayer, cardRotation, settings }
         setPlayer({ score: player.score + delta })
     })
 
-    const fullSizeStyle = { width: "100%", height: "100%" }
-
-    console.log(getUnits(settings.orientation))
+    const fullSizeStyle = { width: "100%", height: "100%", display: "flex", justifyContent: "center" }
+    const scoreChange = player.score - player.lastScore
 
     return (
         <div style={containerStyle}>
@@ -97,6 +96,7 @@ export default function PlayerCard({ player, setPlayer, cardRotation, settings }
             <div style={fullSizeStyle} {...scoreDrag}>
                 <div style={fullSizeStyle} {...scoreLongPress}>
                     <h1 style={{ fontSize: "20" + getUnits(settings.orientation) }}>{player.score}</h1>
+                    {scoreChange !== 0 && <p>{scoreChange > 0 ? '↑' : '↓'}{scoreChange}</p>}
                 </div>
             </div>
 
