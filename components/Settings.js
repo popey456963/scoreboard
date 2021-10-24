@@ -25,7 +25,7 @@ export function Settings({ players, setPlayers, settings, setSettings, setCurren
 
     const playerNumberButtons = []
 
-    for (let i = 2; i < 7; i++) {
+    for (let i = 2; i < 9; i++) {
         playerNumberButtons.push(
             <Button
                 key={i}

@@ -11,13 +11,26 @@ import { Settings } from '../components/Settings'
 
 
 export default function Home() {
+  // const [players, setPlayers] = useState([
+  //   { background: "#285FEA", name: "Player 1", grid: "one", score: 0, lastScore: 0 },
+  //   { background: "#FF005F", name: "Player 2", grid: "two", score: 0, lastScore: 0 },
+  //   { background: "#BC73F0", name: "Player 3", grid: "three", score: 0, lastScore: 0 },
+  //   { background: "#600EA5", name: "Player 4", grid: "four", score: 0, lastScore: 0 },
+  //   { background: "#969CAE", name: "Player 5", grid: "five", score: 0, lastScore: 0 },
+  //   { background: "#3C4053", name: "Player 6", grid: "six", score: 0, lastScore: 0 },
+  //   { background: "#3C4053", name: "Player 7", grid: "seven", score: 0, lastScore: 0 },
+  //   { background: "#3C4053", name: "Player 8", grid: "eight", score: 0, lastScore: 0 }
+  // ])
+
   const [players, setPlayers] = useState([
-    { background: "#285FEA", name: "Player 1", grid: "one", score: 0, lastScore: 0 },
-    { background: "#FF005F", name: "Player 2", grid: "two", score: 0, lastScore: 0 },
-    { background: "#BC73F0", name: "Player 3", grid: "three", score: 0, lastScore: 0 },
-    { background: "#600EA5", name: "Player 4", grid: "four", score: 0, lastScore: 0 },
-    { background: "#969CAE", name: "Player 5", grid: "five", score: 0, lastScore: 0 },
-    { background: "#3C4053", name: "Player 6", grid: "six", score: 0, lastScore: 0 }
+    { background: "#CC0000", name: "Player 1", grid: "one", score: 0, lastScore: 0 },
+    { background: "#CC7000", name: "Player 2", grid: "two", score: 0, lastScore: 0 },
+    { background: "#C5CC00", name: "Player 3", grid: "three", score: 0, lastScore: 0 },
+    { background: "#1FB800", name: "Player 4", grid: "four", score: 0, lastScore: 0 },
+    { background: "#00A8B8", name: "Player 5", grid: "five", score: 0, lastScore: 0 },
+    { background: "#004ECC", name: "Player 6", grid: "six", score: 0, lastScore: 0 },
+    { background: "#1C00B8", name: "Player 7", grid: "seven", score: 0, lastScore: 0 },
+    { background: "#A300A3", name: "Player 8", grid: "eight", score: 0, lastScore: 0 }
   ])
 
   const [settings, setSettings] = useState({

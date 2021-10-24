@@ -100,21 +100,42 @@ export const LAYOUTS = [
             { rotation: DOWN_ROTATION },
             { rotation: LEFT_ROTATION }
         ]
-    }
+    },
 
-    // {
-    //     grid: {
-    //         gridTemplateAreas: `"one one one one" "two two four four" "three three five five" "six six six six"`,
-    //         gridTemplateColumns: "repeat(4, 1fr)",
-    //         gridTemplateRows: "repeat(4, 1fr)"
-    //     },
-    //     players: [
-    //         { rotation: UP_ROTATION },
-    //         { rotation: RIGHT_ROTATION },
-    //         { rotation: RIGHT_ROTATION },
-    //         { rotation: LEFT_ROTATION },
-    //         { rotation: LEFT_ROTATION },
-    //         { rotation: DOWN_ROTATION }
-    //     ]
-    // }
+    // seven players
+    {
+        grid: {
+            gridTemplateAreas: [["one", "two", "three", "seven"], ["four", "five", "six", "seven"]],
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gridTemplateRows: "repeat(2, 1fr)"
+        },
+        players: [
+            { rotation: UP_ROTATION },
+            { rotation: UP_ROTATION },
+            { rotation: UP_ROTATION },
+            { rotation: DOWN_ROTATION },
+            { rotation: DOWN_ROTATION },
+            { rotation: DOWN_ROTATION },
+            { rotation: LEFT_ROTATION }
+        ]
+    },
+
+    // eight players
+    {
+        grid: {
+            gridTemplateAreas: [["one", "two", "three", "four"], ["five", "six", "seven", "eight"]],
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gridTemplateRows: "repeat(2, 1fr)"
+        },
+        players: [
+            { rotation: UP_ROTATION },
+            { rotation: UP_ROTATION },
+            { rotation: UP_ROTATION },
+            { rotation: UP_ROTATION },
+            { rotation: DOWN_ROTATION },
+            { rotation: DOWN_ROTATION },
+            { rotation: DOWN_ROTATION },
+            { rotation: DOWN_ROTATION }
+        ]
+    }
 ]
