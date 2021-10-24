@@ -1,11 +1,13 @@
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
 import fscreen from 'fscreen'
+import isMobile from 'is-mobile'
 
-import { BUSHNA_GAME, GAMEBOARD_VIEW, LANDSCAPE, PORTRAIT, SETTINGS_VIEW } from '../components/constants'
+import { BUSHNA_GAME, GAMEBOARD_BETTING_VIEW, GAMEBOARD_VIEW, LANDSCAPE, PORTRAIT, SETTINGS_VIEW } from '../components/constants'
 import Gameboard from '../components/Gameboard'
 import SettingsButton from '../components/SettingsButton'
 import { Settings } from '../components/Settings'
+import BettingButton from '../components/BettingButton'
 
 
 
@@ -23,14 +25,14 @@ export default function Home() {
   // ])
 
   const [players, setPlayers] = useState([
-    { background: "#CC0000", name: "Player 1", grid: "one", score: 0, lastScore: 0 },
-    { background: "#CC7000", name: "Player 2", grid: "two", score: 0, lastScore: 0 },
-    { background: "#C5CC00", name: "Player 3", grid: "three", score: 0, lastScore: 0 },
-    { background: "#1FB800", name: "Player 4", grid: "four", score: 0, lastScore: 0 },
-    { background: "#00A8B8", name: "Player 5", grid: "five", score: 0, lastScore: 0 },
-    { background: "#004ECC", name: "Player 6", grid: "six", score: 0, lastScore: 0 },
-    { background: "#1C00B8", name: "Player 7", grid: "seven", score: 0, lastScore: 0 },
-    { background: "#A300A3", name: "Player 8", grid: "eight", score: 0, lastScore: 0 }
+    { background: "#CC0000", name: "Player 1", grid: "one", score: 0, lastScore: 0, bet: 0 },
+    { background: "#CC7000", name: "Player 2", grid: "two", score: 0, lastScore: 0, bet: 0 },
+    { background: "#C5CC00", name: "Player 3", grid: "three", score: 0, lastScore: 0, bet: 0 },
+    { background: "#1FB800", name: "Player 4", grid: "four", score: 0, lastScore: 0, bet: 0 },
+    { background: "#00A8B8", name: "Player 5", grid: "five", score: 0, lastScore: 0, bet: 0 },
+    { background: "#004ECC", name: "Player 6", grid: "six", score: 0, lastScore: 0, bet: 0 },
+    { background: "#1C00B8", name: "Player 7", grid: "seven", score: 0, lastScore: 0, bet: 0 },
+    { background: "#A300A3", name: "Player 8", grid: "eight", score: 0, lastScore: 0, bet: 0 }
   ])
 
   const [settings, setSettings] = useState({
@@ -38,7 +40,9 @@ export default function Home() {
     numberOfPlayers: 6,
 
     scoresFaceOutwards: true,
-    orientation: LANDSCAPE
+    orientation: LANDSCAPE,
+
+    biddingGame: false,
   })
 
   const [currentView, setCurrentView] = useState(GAMEBOARD_VIEW)
@@ -76,17 +80,20 @@ export default function Home() {
       fscreen.requestFullscreen(document.body)
     }
 
-    fscreen.onfullscreenerror = () => alert("Request for full screen failed...")
-    document.body.addEventListener('click', requestFullScreen)
+    if (isMobile()) {
+      fscreen.onfullscreenerror = () => alert("Request for full screen failed...")
+      document.body.addEventListener('click', requestFullScreen)
 
-    return function cleanup() {
-      window.removeEventListener('click', requestFullScreen)
+      return function cleanup() {
+        window.removeEventListener('click', requestFullScreen)
+      }
     }
   }, [])
 
   let currentViewElement
   switch (currentView) {
     case GAMEBOARD_VIEW:
+    case GAMEBOARD_BETTING_VIEW:
       currentViewElement = (
         <>
           <Gameboard
@@ -95,11 +102,24 @@ export default function Home() {
             settings={settings}
             setSettings={setSettings}
             setCurrentView={setCurrentView}
+            currentView={currentView}
           />
-          <SettingsButton
-            settings={settings}
-            setCurrentView={setCurrentView}
-          />
+          <div style={{
+            position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)"
+          }}>
+            {settings.biddingGame && <BettingButton
+              settings={settings}
+              currentView={currentView}
+              setCurrentView={setCurrentView}
+              players={players}
+              setPlayers={setPlayers}
+            />}
+            <SettingsButton
+              settings={settings}
+              setCurrentView={setCurrentView}
+            />
+          </div>
+
         </>
       )
       break

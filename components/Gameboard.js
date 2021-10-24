@@ -12,7 +12,7 @@ const baseGameboardStyle = {
     overflow: "hidden",
 }
 
-export default function Gameboard({ players, setPlayers, settings, setSettings, setCurrentView }) {
+export default function Gameboard({ players, setPlayers, settings, setSettings, setCurrentView, currentView }) {
     let layout = LAYOUTS[settings.numberOfPlayers]
 
     if (settings.orientation === PORTRAIT) {
@@ -50,6 +50,7 @@ export default function Gameboard({ players, setPlayers, settings, setSettings, 
                 setPlayer={getSetPlayer()}
                 cardRotation={cardRotation}
                 settings={settings}
+                currentView={currentView}
             />
         )
 

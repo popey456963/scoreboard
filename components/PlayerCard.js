@@ -1,4 +1,4 @@
-import { DOWN_MOVEMENT, DOWN_ROTATION, LEFT_ROTATION, MOVEMENTS, NAME_PRESS, RIGHT_ROTATION, ROTATIONS, SCORE_PRESS, UP_MOVEMENT, UP_ROTATION } from "./constants"
+import { DOWN_MOVEMENT, DOWN_ROTATION, GAMEBOARD_BETTING_VIEW, GAMEBOARD_VIEW, LEFT_ROTATION, MOVEMENTS, NAME_PRESS, RIGHT_ROTATION, ROTATIONS, SCORE_PRESS, UP_MOVEMENT, UP_ROTATION } from "./constants"
 import { useLongPress } from 'use-long-press'
 import {
     Modal,
@@ -49,7 +49,7 @@ function getCardRotationStyle(cardRotation) {
     }
 }
 
-export default function PlayerCard({ player, setPlayer, cardRotation, settings }) {
+export default function PlayerCard({ player, setPlayer, cardRotation, settings, currentView }) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [currentModal, setCurrentModal] = useState(NAME_PRESS)
     const [changeName, setChangeName] = useState("")
@@ -86,19 +86,49 @@ export default function PlayerCard({ player, setPlayer, cardRotation, settings }
         setPlayer({ score: player.score + delta })
     })
 
+    const bidLongPress = useLongPress(e => {
+        setCurrentModal(BET_PRESS)
+        setChangeBet(0)
+        onOpen()
+    }, { threshold: 400, cancelOnMovement: true })
+
+    const bidDrag = useDrag((movement) => {
+        const movementIndex = (MOVEMENTS.indexOf(movement) + ROTATIONS.indexOf(cardRotation)) % 4
+        const relativeMovement = MOVEMENTS[movementIndex]
+
+        let delta = 0
+        if (relativeMovement === UP_MOVEMENT) delta = 1
+        if (relativeMovement === DOWN_MOVEMENT) delta = -1
+
+        setPlayer({ bet: player.bet + delta > 0 ? player.bet + delta : 0 })
+    })
+
     const fullSizeStyle = { width: "100%", height: "100%", display: "flex", justifyContent: "center" }
     const scoreChange = player.score - player.lastScore
+
+    console.log(player)
 
     return (
         <div style={containerStyle}>
             <h5 style={{ fontSize: "7" + getUnits(settings.orientation) }} {...nameLongPress}>{player.name}</h5>
 
-            <div style={fullSizeStyle} {...scoreDrag}>
-                <div style={fullSizeStyle} {...scoreLongPress}>
-                    <h1 style={{ fontSize: "20" + getUnits(settings.orientation) }}>{player.score}</h1>
-                    {scoreChange !== 0 && <p>{scoreChange > 0 ? '↑' : '↓'}{scoreChange}</p>}
+            {
+                currentView === GAMEBOARD_VIEW && <div style={fullSizeStyle} {...scoreDrag}>
+                    <div style={fullSizeStyle} {...scoreLongPress}>
+                        {settings.biddingGame && player.bet}
+                        <h1 style={{ fontSize: "20" + getUnits(settings.orientation) }}>{player.score}</h1>
+                        {scoreChange !== 0 && <p>{scoreChange > 0 ? '↑' : '↓'}{scoreChange}</p>}
+                    </div>
                 </div>
-            </div>
+            }
+
+            {
+                currentView === GAMEBOARD_BETTING_VIEW && <div style={fullSizeStyle} {...bidDrag}>
+                    <div style={fullSizeStyle} {...bidLongPress}>
+                        <h1 style={{ fontSize: "20" + getUnits(settings.orientation) }}>{player.bet}</h1>
+                    </div>
+                </div>
+            }
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
@@ -112,7 +142,7 @@ export default function PlayerCard({ player, setPlayer, cardRotation, settings }
 
 
                     <ModalFooter>
-                        <Button variant="ghost">Cancel</Button>
+                        <Button variant="ghost" onClick={onClose}>Cancel</Button>
                         <Button colorScheme="blue" mr={3} onClick={() => {
                             if (currentModal === SCORE_PRESS) {
                                 const newScore = parseInt(changeScore)

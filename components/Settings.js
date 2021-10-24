@@ -22,6 +22,7 @@ export function Settings({ players, setPlayers, settings, setSettings, setCurren
     const playerNumberVariant = (numPlayers, button) => numPlayers === button ? "solid" : "outline"
     const setPlayerCount = numPlayers => setSettings({ ...settings, numberOfPlayers: numPlayers })
     const setOutwardScores = e => setSettings({ ...settings, scoresFaceOutwards: e.target.checked })
+    const setBiddingGame = e => setSettings({ ...settings, biddingGame: e.target.checked })
 
     const playerNumberButtons = []
 
@@ -60,6 +61,13 @@ export function Settings({ players, setPlayers, settings, setSettings, setCurren
                     <Switch id="outward" isChecked={settings.scoresFaceOutwards} onChange={setOutwardScores} />
                 </FormControl>
 
+                <FormControl display="flex" alignItems="center">
+                    <FormLabel htmlFor="outward" mb="0">
+                        Game has Bids (e.g. Whist)
+                    </FormLabel>
+                    <Switch id="outward" isChecked={settings.biddingGame} onChange={setBiddingGame} />
+                </FormControl>
+
                 <div style={{ height: "6vh" }}></div>
 
                 <FormControl>
@@ -77,44 +85,4 @@ export function Settings({ players, setPlayers, settings, setSettings, setCurren
             </div>
         </>
     )
-
-
-    // <div>
-    //     <br />
-    //     <br />
-
-    //     <Box bg="tomato" w="100%" p={4} color="white">
-    //         This is the Box
-    //     </Box>
-
-    //     <div>
-    //         <button style={{ width: "100px" }} onClick={() => setPlayers(2)}>2</button>
-    //         <button style={{ width: "100px" }} onClick={() => setPlayers(3)}>3</button>
-    //         <button style={{ width: "100px" }} onClick={() => setPlayers(4)}>4</button>
-    //         <button style={{ width: "100px" }} onClick={() => setPlayers(5)}>5</button>
-    //         <button style={{ width: "100px" }} onClick={() => setPlayers(6)}>6</button>
-    //     </div>
-
-    //     <br />
-
-    //     <div>
-    //         <button style={{ width: "100px" }} onClick={() => setSameDirection(true)}>Same Direction</button>
-    //         <button style={{ width: "100px" }} onClick={() => setSameDirection(false)}>Outwards Direction</button>
-    //     </div>
-
-    //     <br />
-
-    //     <div>
-    //         <input type="number" value={score} onChange={(e) => setScore(e.target.value)} />
-    //         <button style={{ width: "100px" }} onClick={() => setScores([...scores].fill(parseInt(score)))}>Set All Scores</button>
-    //         <button style={{ width: "100px" }} onClick={() => setScores([...scores].fill(0))}>Reset To Zero</button>
-    //     </div>
-
-    //     <br />
-    //     <br />
-
-    //     <div>
-    //         <button onClick={() => setShowSettings(false)}>Close</button>
-    //     </div>
-    // </div >
 }
